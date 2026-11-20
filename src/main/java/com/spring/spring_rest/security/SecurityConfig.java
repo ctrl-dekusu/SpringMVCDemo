@@ -101,7 +101,7 @@ public class SecurityConfig {
   }
 
   @Bean 
-  CorsConfigurationSource corsConfiguration() {
+  CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
 
     configuration.setAllowedOrigins(
