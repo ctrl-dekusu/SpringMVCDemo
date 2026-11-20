@@ -35,7 +35,7 @@ public class StudentExceptionHandler {
   ) {
     StudentErrorResponse err = new StudentErrorResponse();
 
-    err.setTimeStamp(HttpStatus.NOT_FOUND.value());
+    err.setStatus(HttpStatus.NOT_FOUND.value());
     err.setMessage(ex.getMessage());
     err.setTimeStamp(System.currentTimeMillis());
 
