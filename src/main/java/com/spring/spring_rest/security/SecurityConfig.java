@@ -100,6 +100,12 @@ public class SecurityConfig {
     return authentication.getAuthenticationManager();
   }
 
+  /**
+   * Provides the CORS configuration for application requests, allowing the
+   * configured local origins, HTTP methods, and headers with credentials.
+   *
+   * @return the CORS configuration source registered for all request paths
+   */
   @Bean 
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
@@ -115,7 +121,8 @@ public class SecurityConfig {
     );
     configuration.setAllowCredentials(true);
 
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    UrlBasedCorsConfigurationSource source = 
+      new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
     return source;
   }

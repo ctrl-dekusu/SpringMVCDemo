@@ -1,6 +1,16 @@
 const API_URL = "http://localhost:8080/api/students";
 const API_AUTH = "http://localhost:8080/api/auth";
 
+/**
+ * Creates a new student record.
+ *
+ * @async
+ * @param {Object} studentData - The student details to create.
+ * @param {string} studentData.firstName - The student's first name.
+ * @param {string} studentData.lastName - The student's last name.
+ * @param {string} studentData.email - The student's email address.
+ * @returns {Promise<void>} Resolves after the create request completes.
+ */
 async function createStudent(studentData) {
   try {
     const response = await fetch(API_URL, {
@@ -13,6 +23,8 @@ async function createStudent(studentData) {
     if (response.ok) {
       alert("Student added successfully!");
       resetForm();
+      getAllStudents();
+      window.location.href = "index.html";
     } else {
       alert("Error adding student.");
     }
@@ -42,6 +54,11 @@ document.getElementById("studentForm").addEventListener("submit", function(e) {
   }
 });
 
+/**
+ * Clears the student form and restores the submit button to add mode.
+ *
+ * @returns {void}
+ */
 function resetForm() {
   document.getElementById("studentId").value = "";
   document.getElementById("studentForm").reset();
@@ -51,6 +68,12 @@ function resetForm() {
   submitBtn.style.backgroundColor = "#28a745";
 }
 
+/**
+ * Fetches all students and renders them in the student table.
+ *
+ * @async
+ * @returns {Promise<void>} Resolves after the table is populated.
+ */
 async function getAllStudents() {
   try {
     const response = await fetch(API_URL, {
@@ -70,8 +93,14 @@ async function getAllStudents() {
           <td>${student.lastName}</td>
           <td>${student.email}</td>
           <td>
-            <button class="btn-edit" onclick="initializeStudentFormById(${student.id})">Edit</button>
-            <button class="btn-delete" onclick="deleteStudent(${student.id})">Delete</button>
+            <button class="btn-edit" 
+            onclick="initializeStudentFormById(${student.id})">
+              Edit
+            </button>
+            <button class="btn-delete" 
+            onclick="deleteStudent(${student.id})">
+              Delete
+            </button>
           </td>
         </tr>
       `;
@@ -85,6 +114,13 @@ async function getAllStudents() {
 
 document.addEventListener("DOMContentLoaded", getAllStudents);
 
+/**
+ * Loads a student's details into the form for editing.
+ *
+ * @async
+ * @param {number|string} id - The identifier of the student to edit.
+ * @returns {Promise<void>} Resolves after the form is initialized.
+ */
 async function initializeStudentFormById(id) {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
@@ -109,6 +145,17 @@ async function initializeStudentFormById(id) {
   }
 }
 
+/**
+ * Updates an existing student record.
+ *
+ * @async
+ * @param {number|string} id - The identifier of the student to update.
+ * @param {Object} studentData - The updated student details.
+ * @param {string} studentData.firstName - The student's first name.
+ * @param {string} studentData.lastName - The student's last name.
+ * @param {string} studentData.email - The student's email address.
+ * @returns {Promise<void>} Resolves after the update request completes.
+ */
 async function updateStudent(id, studentData) {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
@@ -122,6 +169,7 @@ async function updateStudent(id, studentData) {
       alert("Student update successfully!");
       resetForm();
       getAllStudents();
+      window.location.href = "index.html";
     } else {
       alert("Error updating student.");
     }
@@ -130,6 +178,13 @@ async function updateStudent(id, studentData) {
   }
 }
 
+/**
+ * Deletes a student after the user confirms the action.
+ *
+ * @async
+ * @param {number|string} id - The identifier of the student to delete.
+ * @returns {Promise<void>} Resolves after the delete request completes.
+ */
 async function deleteStudent(id) {
   if (confirm("Are you sure you want to delete this student?")) {
     try {
@@ -142,6 +197,7 @@ async function deleteStudent(id) {
         const message = await response.text();
         alert(message);
         getAllStudents();
+        window.location.href = "index.html";
       } else {
         alert("Error deleting student.");
       }
@@ -151,6 +207,15 @@ async function deleteStudent(id) {
   }
 }
 
+/**
+ * Authenticates a user and establishes the login session.
+ *
+ * @async
+ * @param {Object} loginDto - The login credentials.
+ * @param {string} loginDto.username - The user's username.
+ * @param {string} loginDto.password - The user's password.
+ * @returns {Promise<void>} Resolves after the login request completes.
+ */
 async function loginUser(loginDto) {
   try {
     const response = await fetch(`${API_AUTH}/auth_login_session`, {
@@ -162,8 +227,8 @@ async function loginUser(loginDto) {
 
     if (response.ok) {
       alert("Login successful!");
-      window.location.href = "index.html";
       getAllStudents();
+      window.location.href = "index.html";
     } else {
       alert("Invalid credentials.");
     }
@@ -172,6 +237,12 @@ async function loginUser(loginDto) {
   }
 }
 
+/**
+ * Logs out the current user and clears the student table and form.
+ *
+ * @async
+ * @returns {Promise<void>} Resolves after logout processing completes.
+ */
 async function logoutUser() {
   try {
     await fetch(`${API_AUTH}/logout`, {

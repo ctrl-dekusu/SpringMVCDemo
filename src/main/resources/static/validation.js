@@ -1,3 +1,9 @@
+/**
+ * Validates the student form fields and displays inline validation errors.
+ *
+ * @returns {boolean} True when all student form fields are valid; 
+ * otherwise, false.
+ */
 function validateStudentForm() {
   let isValid = true;
 
@@ -26,7 +32,8 @@ function validateStudentForm() {
     lastName.classList.add("invalid");
     isValid = false;
   } else if (lastName.value.trim().length < 2) {
-    lastNameError.textContent = "Last name must be at least 2 characters long.";
+    lastNameError.textContent = 
+      "Last name must be at least 2 characters long.";
     lastName.classList.add("invalid");
     isValid = false;
   }
@@ -39,7 +46,8 @@ function validateStudentForm() {
     email.toClassList.add("invalid");
     isValid = false;
   } else if (!emailRegex.test(emailValue)) {
-    emailError.textContent = "Please enter a valid email address (e.g, student@example.com).";
+    emailError.textContent = 
+      "Please enter a valid email address (e.g, student@example.com).";
     email.toClassList.add("invalid");
     isValid = false;
   }
@@ -47,6 +55,12 @@ function validateStudentForm() {
   return isValid;
 }
 
+/**
+ * Removes validation styles and clears validation messages from student 
+ * fields.
+ *
+ * @returns {void}
+ */
 function clearValidationStyles() {
   const fields = ["firstName", "lastName", "email"];
 
