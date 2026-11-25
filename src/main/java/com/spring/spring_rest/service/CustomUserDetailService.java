@@ -1,5 +1,9 @@
 package com.spring.spring_rest.service;
 
+import com.spring.spring_rest.entity.Auth_Role;
+import com.spring.spring_rest.entity.Auth_User;
+import com.spring.spring_rest.repository.AuthUserRepository;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,10 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import com.spring.spring_rest.entity.Auth_Role;
-import com.spring.spring_rest.entity.Auth_User;
-import com.spring.spring_rest.repository.AuthUserRepository;
 
 /**
  * Implementation of {@link UserDetailsService} that loads user-specific 

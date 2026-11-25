@@ -1,10 +1,5 @@
 package com.spring.spring_rest.controller;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.spring.spring_rest.dto.StudentDto;
 import com.spring.spring_rest.entity.Student;
 import com.spring.spring_rest.exception.StudentNotFoundException;
@@ -12,9 +7,10 @@ import com.spring.spring_rest.service.StudentService;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * REST controller exposing CRUD endpoints for managing {@link Student} 
@@ -43,15 +41,6 @@ public class StudentRestController {
   public StudentRestController(StudentService studentService) {
     this.studentService = studentService;
   }
-
-  // @PostConstruct
-  // public void initialize() {
-  //   theStudents = new ArrayList<>();
-
-  //   theStudents.add(new Student("Light", "Yagami"));
-  //   theStudents.add(new Student("Leslie", "Andrews"));
-  //   theStudents.add(new Student("Emma", "Baumgarten"));
-  // }
 
   /**
    * Retrieves the in-memory list of students.

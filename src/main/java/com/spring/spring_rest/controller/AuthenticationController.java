@@ -1,20 +1,5 @@
 package com.spring.spring_rest.controller;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken; 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
-
 import com.spring.spring_rest.dto.AuthLoginDto;
 import com.spring.spring_rest.dto.AuthRoleRegisterDto;
 import com.spring.spring_rest.dto.AuthUserRegisterDto;
@@ -26,8 +11,21 @@ import com.spring.spring_rest.repository.AuthUserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken; 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * REST controller exposing endpoints for role registration, 
@@ -157,6 +155,13 @@ public class AuthenticationController {
     return new ResponseEntity<>("Signed in successfully!", HttpStatus.OK);
   }
 
+  /**
+   * Authenticates a user and stores the security context in an HTTP session.
+   *
+   * @param authLoginDto the login credentials
+   * @param request the HTTP request used to create the session
+   * @return a response containing an authentication confirmation message
+   */
   @PostMapping("/auth_login_session")
   public ResponseEntity<?> loginWithSession(
     @RequestBody AuthLoginDto authLoginDto,
@@ -180,6 +185,13 @@ public class AuthenticationController {
     return ResponseEntity.ok(response);
   }
 
+  /**
+   * Invalidates the current HTTP session, if one exists, and clears the
+   * security context.
+   *
+   * @param request the HTTP request containing the current session, if any
+   * @return a response with a logout message and HTTP 401 status
+   */
   @PostMapping("/logout")
   public ResponseEntity<String> logout(HttpServletRequest request) {
     HttpSession session = request.getSession(false);

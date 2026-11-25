@@ -43,12 +43,12 @@ function validateStudentForm() {
 
   if (emailValue === "") {
     emailError.textContent = "Email address is required.";
-    email.toClassList.add("invalid");
+    email.ClassList.add("invalid");
     isValid = false;
   } else if (!emailRegex.test(emailValue)) {
     emailError.textContent = 
       "Please enter a valid email address (e.g, student@example.com).";
-    email.toClassList.add("invalid");
+    email.ClassList.add("invalid");
     isValid = false;
   }
 

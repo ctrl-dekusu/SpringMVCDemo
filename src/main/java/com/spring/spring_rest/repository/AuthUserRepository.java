@@ -1,10 +1,10 @@
 package com.spring.spring_rest.repository;
 
+import com.spring.spring_rest.entity.Auth_User;
+
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.spring.spring_rest.entity.Auth_User;
 
 /**
  * Spring Data JPA repository interface for performing CRUD and 

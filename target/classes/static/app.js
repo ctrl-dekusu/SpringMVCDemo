@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", getAllStudents);
 async function initializeStudentFormById(id) {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
-      // credentials: "include"
+      credentials: "include"
     });
     if (!response.ok) throw new Error("Could not fetch student details.");
 
